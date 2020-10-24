@@ -197,6 +197,15 @@ func Gql__input_{{ .TypeName }}() *graphql.InputObject {
 {{ end }}
 
 {{ range $_, $service := .Services -}}
+
+// {{ $service.Name }}Options defines options that tell a graphql__resolver_{{ $service.Name }}
+// how to function.
+type {{ $service.Name }}Options struct {
+	Host string
+	WithInsecure bool
+	Conn *grpc.ClientConn
+}
+
 // graphql__resolver_{{ $service.Name }} is a struct for making query, mutation and resolve fields.
 // This struct must be implemented runtime.SchemaBuilder interface.
 type graphql__resolver_{{ $service.Name }} struct {
@@ -213,16 +222,30 @@ type graphql__resolver_{{ $service.Name }} struct {
 }
 
 // new_graphql_resolver_{{ $service.Name }} creates pointer of service struct
-func new_graphql_resolver_{{ $service.Name }}(conn *grpc.ClientConn) *graphql__resolver_{{ $service.Name }} {
-	return &graphql__resolver_{{ .Name }}{
-		conn: conn,
-		host: "{{ if .Host }}{{ .Host }}{{ else }}localhost:50051{{ end }}",
-		dialOptions: []grpc.DialOption{
-		{{- if .Insecure }}
-			grpc.WithInsecure(),
-		{{- end }}
-		},
+func new_graphql_resolver_{{ $service.Name }}(opts *{{ $service.Name }}Options) *graphql__resolver_{{ $service.Name }} {
+	var conn *grpc.Conn
+	host := "{{ if .Host }}{{ .Host }}{{ else }}localhost:50051{{ end }}"
+	dialOptions := []grpc.DialOption{}
+
+	if opts != nil {
+		conn = opts.Conn
+		
+		if opts.Host != "" {
+			host = opts.Host
+		}
+
+		if opts.WithInsecure || {{- if .Insecure }} true {{- else }} false {{- end }} {
+			dialOptions = append(dialOptions, grpc.WithInsecure())
+		}
 	}
+	
+	res := &graphql__resolver_{{ .Name }}{
+		conn: conn,
+		host: host,
+		dialOptions: dialOptions,
+	}
+
+	return res
 }
 
 // CreateConnection() returns grpc connection which user specified or newly connected and closing function
@@ -381,7 +404,13 @@ func Register{{ .Name }}Graphql(mux *runtime.ServeMux) error {
 //    ...with RPC definitions
 // }
 func Register{{ .Name }}GraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(conn))
+	opts := &{{ $service.Name }}Options{conn: conn}
+	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
+}
+
+// Register{{ .Name }}GraphqlHandlerWithOptions registers the service with the given options.
+func Register{{ .Name }}GraphqlHandlerWithOptions(mux *runtime.ServeMux, opts *{{ $service.Name }}Options) error {
+	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
 }
 
 {{ end }}
