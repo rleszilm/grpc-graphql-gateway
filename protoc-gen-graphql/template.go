@@ -354,6 +354,11 @@ func (x *graphql__resolver_{{ $service.Name }}) GetMutations(conn *grpc.ClientCo
 	}
 }
 
+// WithGRPCAddr sets the address of the grpc server to use.
+func (x *graphql__resolver_{{ $service.Name }}) WithGRPCAddr(addr string) {
+	x.host = addr
+}
+
 // Register package divided graphql handler "without" *grpc.ClientConn,
 // therefore gRPC connection will be opened and closed automatically.
 // Occasionally you may worry about open/close performance for each handling graphql request,
