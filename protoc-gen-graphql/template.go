@@ -8,6 +8,7 @@ import (
 {{- if .Services }}
 	"context"
 
+	"github.com/rleszilm/grpc-graphql-gateway/options"
 	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
 	"google.golang.org/grpc"
 	"github.com/pkg/errors"
@@ -198,14 +199,6 @@ func Gql__input_{{ .TypeName }}() *graphql.InputObject {
 
 {{ range $_, $service := .Services -}}
 
-// {{ $service.Name }}Options defines options that tell a graphql__resolver_{{ $service.Name }}
-// how to function.
-type {{ $service.Name }}Options struct {
-	Host string
-	WithInsecure bool
-	Conn *grpc.ClientConn
-}
-
 // graphql__resolver_{{ $service.Name }} is a struct for making query, mutation and resolve fields.
 // This struct must be implemented runtime.SchemaBuilder interface.
 type graphql__resolver_{{ $service.Name }} struct {
@@ -222,7 +215,7 @@ type graphql__resolver_{{ $service.Name }} struct {
 }
 
 // new_graphql_resolver_{{ $service.Name }} creates pointer of service struct
-func new_graphql_resolver_{{ $service.Name }}(opts *{{ $service.Name }}Options) *graphql__resolver_{{ $service.Name }} {
+func new_graphql_resolver_{{ $service.Name }}(opts *options.ServerOptions) *graphql__resolver_{{ $service.Name }} {
 	var conn *grpc.Conn
 	host := "{{ if .Host }}{{ .Host }}{{ else }}localhost:50051{{ end }}"
 	dialOptions := []grpc.DialOption{}
@@ -408,8 +401,8 @@ func Register{{ .Name }}GraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientC
 	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
 }
 
-// Register{{ .Name }}GraphqlHandlerWithOptions registers the service with the given options.
-func Register{{ .Name }}GraphqlHandlerWithOptions(mux *runtime.ServeMux, opts *{{ $service.Name }}Options) error {
+// Register{{ .Name }}GraphqlWithOptions registers the service with the given options.
+func Register{{ .Name }}GraphqlWithOptions(mux *runtime.ServeMux, opts *options.ServerOptions) error {
 	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
 }
 
