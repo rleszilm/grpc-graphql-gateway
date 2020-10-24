@@ -199,6 +199,7 @@ func Gql__input_{{ .TypeName }}() *graphql.InputObject {
 
 {{ range $_, $service := .Services -}}
 
+
 // graphql__resolver_{{ $service.Name }} is a struct for making query, mutation and resolve fields.
 // This struct must be implemented runtime.SchemaBuilder interface.
 type graphql__resolver_{{ $service.Name }} struct {
