@@ -199,7 +199,6 @@ func Gql__input_{{ .TypeName }}() *graphql.InputObject {
 
 {{ range $_, $service := .Services -}}
 
-
 // graphql__resolver_{{ $service.Name }} is a struct for making query, mutation and resolve fields.
 // This struct must be implemented runtime.SchemaBuilder interface.
 type graphql__resolver_{{ $service.Name }} struct {
@@ -398,7 +397,7 @@ func Register{{ .Name }}Graphql(mux *runtime.ServeMux) error {
 //    ...with RPC definitions
 // }
 func Register{{ .Name }}GraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	opts := &{{ $service.Name }}Options{conn: conn}
+	opts := &options.ServerOptions{conn: conn}
 	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
 }
 
