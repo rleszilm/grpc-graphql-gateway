@@ -397,7 +397,7 @@ func Register{{ .Name }}Graphql(mux *runtime.ServeMux) error {
 //    ...with RPC definitions
 // }
 func Register{{ .Name }}GraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	opts := &{{ $service.Name }}Options{conn: conn}
+	opts := &options.ServerOptions{conn: conn}
 	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
 }
 
