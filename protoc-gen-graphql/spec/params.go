@@ -12,6 +12,7 @@ type Params struct {
 	Excludes       []*regexp.Regexp
 	Verbose        bool
 	FieldCamelCase bool
+	RelativePaths  bool
 }
 
 func NewParams(p string) (*Params, error) {
@@ -43,6 +44,11 @@ func NewParams(p string) (*Params, error) {
 			params.Excludes = append(params.Excludes, regex)
 		case "field_camel":
 			params.FieldCamelCase = true
+		case "paths":
+			if len(kv) == 1 {
+				return nil, errors.New("argument " + kv[0] + " must have value")
+			}
+			params.RelativePaths = kv[1] == "source_relative"
 		default:
 			return nil, errors.New("Unacceptable argument " + kv[0] + " provided")
 		}
