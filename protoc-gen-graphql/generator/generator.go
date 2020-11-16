@@ -3,8 +3,8 @@ package generator
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"os"
+	"path"
 	"sort"
 
 	"go/format"
@@ -243,9 +243,28 @@ func (g *Generator) generateFile(file *spec.File, tmpl string, services []*spec.
 	}
 
 	return &plugin.CodeGeneratorResponse_File{
-		Name:    proto.String(fmt.Sprintf("%s/%s.graphql.go", root.Path, root.Name)),
+		Name:    proto.String(g.fileName(file)),
 		Content: proto.String(string(out)),
 	}, nil
+}
+
+func (g *Generator) fileName(file *spec.File) string {
+	name := file.Filename()
+	if ext := path.Ext(name); ext == ".proto" || ext == ".protodevel" {
+		name = name[:len(name)-len(ext)]
+	}
+	name += ".graphql.go"
+
+	if g.args.RelativePaths {
+		return name
+	}
+
+	goPackage := file.GoPackage()
+	if goPackage != "" {
+		_, name = path.Split(name)
+		return path.Join(goPackage, name)
+	}
+	return name
 }
 
 func (g *Generator) getMessage(name string) *spec.Message {
