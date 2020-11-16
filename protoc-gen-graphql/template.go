@@ -216,7 +216,7 @@ type graphql__resolver_{{ $service.Name }} struct {
 
 // new_graphql_resolver_{{ $service.Name }} creates pointer of service struct
 func new_graphql_resolver_{{ $service.Name }}(opts *options.ServerOptions) *graphql__resolver_{{ $service.Name }} {
-	var conn *grpc.Conn
+	var conn *grpc.ClientConn
 	host := "{{ if .Host }}{{ .Host }}{{ else }}localhost:50051{{ end }}"
 	dialOptions := []grpc.DialOption{}
 
@@ -397,7 +397,7 @@ func Register{{ .Name }}Graphql(mux *runtime.ServeMux) error {
 //    ...with RPC definitions
 // }
 func Register{{ .Name }}GraphqlHandler(mux *runtime.ServeMux, conn *grpc.ClientConn) error {
-	opts := &options.ServerOptions{conn: conn}
+	opts := &options.ServerOptions{Conn: conn}
 	return mux.AddHandler(new_graphql_resolver_{{ .Name }}(opts))
 }
 
