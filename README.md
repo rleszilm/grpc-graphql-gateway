@@ -1,10 +1,10 @@
 # grpc-graphql-gateway
 
-[![CircleCI](https://circleci.com/gh/ysugimoto/grpc-graphql-gateway/tree/master.svg?style=svg)](https://circleci.com/gh/ysugimoto/grpc-graphql-gateway/tree/master)
+[![CircleCI](https://circleci.com/gh/rleszilm/grpc-graphql-gateway/tree/master.svg?style=svg)](https://circleci.com/gh/rleszilm/grpc-graphql-gateway/tree/master)
 
 `grpc-graphql-gateway` is a protoc plugin that generates graphql execution code from Protocol Buffers.
 
-![image](https://raw.githubusercontent.com/ysugimoto/grpc-graphql-gateway/master/misc/grpc-graphql-gateway.png)
+![image](https://raw.githubusercontent.com/rleszilm/grpc-graphql-gateway/master/misc/grpc-graphql-gateway.png)
 
 ## Motivation
 
@@ -22,12 +22,12 @@ This project much refers to [grpc-gateway](https://github.com/grpc-ecosystem/grp
 
 ### Get plugin binary
 
-Get `protoc-gen-graphql` binary from [releases](https://github.com/ysugimoto/grpc-graphql-gateway/releases) page and set $PATH to be executable.
+Get `protoc-gen-graphql` binary from [releases](https://github.com/rleszilm/grpc-graphql-gateway/releases) page and set $PATH to be executable.
 
 Or, simply get the latest one:
 
 ```shell
-go get github.com/ysugimoto/grpc-graphql-gateway/protoc-gen-graphql/...
+go get github.com/rleszilm/grpc-graphql-gateway/protoc-gen-graphql/...
 ```
 
 Then the binary will place in `$GOBIN`.
@@ -37,7 +37,7 @@ Then the binary will place in `$GOBIN`.
 Get `include/graphql.proto` from this repository and put it into your project under the protobuf files.
 
 ```shell
-git submodule add https://github.com/ysugimoto/grpc-graphql-gateway.git grpc-graphql-gateway
+git submodule add https://github.com/rleszilm/grpc-graphql-gateway.git grpc-graphql-gateway
 ## Or another way...
 ```
 
@@ -178,7 +178,7 @@ import (
     "net/http"
 
     "github.com/[your/project]/greeter"
-    "github.com/ysugimoto/grpc-graphql-gateway/runtime"
+    "github.com/rleszilm/grpc-graphql-gateway/runtime"
 )
 
 func main() {
@@ -236,8 +236,8 @@ This is the most simplest way :-)
 To learn more, please see the following resources:
 
 - `graphql.proto` Plugin option definition. See a comment section for custom usage (e.g mutation).
-- [example/greeter](https://github.com/ysugimoto/grpc-graphql-gateway/tree/master/example/greeter)  Files of above usage.
-- [example/starwars](https://github.com/ysugimoto/grpc-graphql-gateway/tree/master/example/starwars) Common implementation for GraphQL explanation, the StarWars API example
+- [example/greeter](https://github.com/rleszilm/grpc-graphql-gateway/tree/master/example/greeter)  Files of above usage.
+- [example/starwars](https://github.com/rleszilm/grpc-graphql-gateway/tree/master/example/starwars) Common implementation for GraphQL explanation, the StarWars API example
 
 This plugin generates graphql execution code using [graphql-go/graphql](https://github.com/graphql-go/graphql), see that repository in detail.
 

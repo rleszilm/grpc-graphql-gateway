@@ -9,7 +9,7 @@ package greeter
 import (
 	context "context"
 	proto "github.com/golang/protobuf/proto"
-	_ "github.com/ysugimoto/grpc-graphql-gateway/graphql"
+	_ "github.com/rleszilm/grpc-graphql-gateway/graphql"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

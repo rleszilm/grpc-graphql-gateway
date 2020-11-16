@@ -6,7 +6,7 @@ import (
 	"log"
 	"net"
 
-	"github.com/ysugimoto/grpc-graphql-gateway/example/starwars/spec/starwars"
+	"github.com/rleszilm/grpc-graphql-gateway/example/starwars/spec/starwars"
 	"google.golang.org/grpc"
 )
 

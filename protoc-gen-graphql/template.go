@@ -9,7 +9,7 @@ import (
 	"context"
 
 	"github.com/rleszilm/grpc-graphql-gateway/options"
-	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
+	"github.com/rleszilm/grpc-graphql-gateway/runtime"
 	"google.golang.org/grpc"
 	"github.com/pkg/errors"
 {{- end }}

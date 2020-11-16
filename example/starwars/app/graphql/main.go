@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ysugimoto/grpc-graphql-gateway/example/starwars/spec/starwars"
-	"github.com/ysugimoto/grpc-graphql-gateway/runtime"
+	"github.com/rleszilm/grpc-graphql-gateway/example/starwars/spec/starwars"
+	"github.com/rleszilm/grpc-graphql-gateway/runtime"
 )
 
 func main() {

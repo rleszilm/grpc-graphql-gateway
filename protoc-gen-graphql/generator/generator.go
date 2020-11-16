@@ -15,8 +15,8 @@ import (
 	"github.com/golang/protobuf/proto"
 	descriptor "github.com/golang/protobuf/protoc-gen-go/descriptor"
 	plugin "github.com/golang/protobuf/protoc-gen-go/plugin"
+	"github.com/rleszilm/grpc-graphql-gateway/graphql"
 	"github.com/rleszilm/grpc-graphql-gateway/protoc-gen-graphql/spec"
-	"github.com/ysugimoto/grpc-graphql-gateway/graphql"
 )
 
 type Template struct {

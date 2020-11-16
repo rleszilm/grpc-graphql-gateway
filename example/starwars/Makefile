@@ -23,7 +23,7 @@ build: init
 			--go_out=plugins=grpc:${SPECDIR} \
 			$$file; \
 	done
-	mv ${SPECDIR}/github.com/ysugimoto/grpc-graphql-gateway/example/starwars/spec/* ${SPECDIR}
+	mv ${SPECDIR}/github.com/rleszilm/grpc-graphql-gateway/example/starwars/spec/* ${SPECDIR}
 	rm -rf ${SPECDIR}/github.com
 
 init:

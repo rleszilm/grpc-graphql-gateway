@@ -2,21 +2,21 @@
 
 ## v0.18.1, v0.18.2
 
-- Fix Google's ptypes package and generation [#27](https://github.com/ysugimoto/grpc-graphql-gateway/pull/27) [#29](https://github.com/ysugimoto/grpc-graphql-gateway/pull/29)
+- Fix Google's ptypes package and generation [#27](https://github.com/rleszilm/grpc-graphql-gateway/pull/27) [#29](https://github.com/rleszilm/grpc-graphql-gateway/pull/29)
 
 ## v0.18.0
 
-- Enable to parse enums within message [#26](https://github.com/ysugimoto/grpc-graphql-gateway/pull/26) (@hychrisli)
+- Enable to parse enums within message [#26](https://github.com/rleszilm/grpc-graphql-gateway/pull/26) (@hychrisli)
 
 ## v0.17.0
 
-- Add default error handler which add `code` extension via gRPC error [#25](https://github.com/ysugimoto/grpc-graphql-gateway/pull/25)
+- Add default error handler which add `code` extension via gRPC error [#25](https://github.com/rleszilm/grpc-graphql-gateway/pull/25)
 
 ## v0.16.0
 
 ## New graphql.proto option
 
-- Add new graphql option of `resolver` [#24](https://github.com/ysugimoto/grpc-graphql-gateway/pull/24)
+- Add new graphql option of `resolver` [#24](https://github.com/rleszilm/grpc-graphql-gateway/pull/24)
 
 ```protobuf
 message GraphqlField {
@@ -38,7 +38,7 @@ Add `omit` option in graphql.field option.
 
 Bugfixes
 
-- enum: use protobuf enum type for value [#18](https://github.com/ysugimoto/grpc-graphql-gateway/pull/18) (@bmkessler)
+- enum: use protobuf enum type for value [#18](https://github.com/rleszilm/grpc-graphql-gateway/pull/18) (@bmkessler)
 
 ## v0.14.5
 
@@ -165,4 +165,4 @@ If middleware returns `MiddlewareError`, the runtime error will be:
 ### Changed middleware fucntion type
 
 On MiddlewareFunc, you need to return `context.Context` as first return value. this is because we need to make custom metadata to gRPC on middleware process.
-If you are already using your onw middleware, plase change its interface. see https://github.com/ysugimoto/grpc-graphql-gateway/pull/10
+If you are already using your onw middleware, plase change its interface. see https://github.com/rleszilm/grpc-graphql-gateway/pull/10
